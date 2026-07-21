@@ -1,0 +1,32 @@
+name: AhorroCompartido
+options:
+  bundleIdPrefix: com.ahorrocompartido
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+targets:
+  AhorroCompartido:
+    type: application
+    platform: iOS
+    sources:
+      - App
+      - Models
+      - ViewModels
+      - Views
+      - Helpers
+    info:
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSLocationWhenInUseUsageDescription: "Usamos tu ubicación para mostrársela a tu pareja vinculada."
+        NSLocationAlwaysAndWhenInUseUsageDescription: "Necesitamos tu ubicación en segundo plano para avisarte cuando estés cerca de una zona comercial."
+        UIBackgroundModes:
+          - location
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ahorrocompartido.app
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"

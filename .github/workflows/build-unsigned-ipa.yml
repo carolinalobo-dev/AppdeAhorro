@@ -1,0 +1,49 @@
+name: Build unsigned IPA
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build unsigned app for iOS device
+        run: |
+          xcodebuild \
+            -project AhorroCompartido.xcodeproj \
+            -scheme AhorroCompartido \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$PWD/build" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            clean build
+
+      - name: Package .ipa
+        run: |
+          set -e
+          APP_PATH="build/Build/Products/Release-iphoneos/AhorroCompartido.app"
+          mkdir -p Payload
+          cp -r "$APP_PATH" Payload/
+          zip -r AhorroCompartido.ipa Payload
+          rm -rf Payload
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AhorroCompartido-unsigned
+          path: AhorroCompartido.ipa
+          retention-days: 30
