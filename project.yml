@@ -16,14 +16,7 @@ targets:
       - Views
       - Helpers
     info:
-      properties:
-        UILaunchScreen: {}
-        UISupportedInterfaceOrientations:
-          - UIInterfaceOrientationPortrait
-        NSLocationWhenInUseUsageDescription: "Usamos tu ubicación para mostrársela a tu pareja vinculada."
-        NSLocationAlwaysAndWhenInUseUsageDescription: "Necesitamos tu ubicación en segundo plano para avisarte cuando estés cerca de una zona comercial."
-        UIBackgroundModes:
-          - location
+      path: Info.plist
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ahorrocompartido.app
